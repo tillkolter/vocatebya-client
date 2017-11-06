@@ -4,6 +4,7 @@ import App from './components/App'
 import router from './router'
 import store from './store'
 import axios from 'axios'
+
 import VueLocalStorage from 'vue-localstorage'
 
 Vue.use(VueLocalStorage, {

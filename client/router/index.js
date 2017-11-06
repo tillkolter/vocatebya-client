@@ -8,14 +8,18 @@ import { jwtUpToDate } from '../utils/auth'
 Vue.use(Router)
 
 function requireAuth (to, from, next) {
-  let lsUser = Vue.ls.get('user')
+  let lsUser = window.localStorage.getItem('user')
   if (lsUser) {
     let user = JSON.parse(lsUser)
-    if (user && jwtUpToDate(user)) {
+    if (jwtUpToDate(user)) {
       Store.commit('SET_USER', user)
+      next()
+    } else if (!Store.getters.isAuthenticated) {
+      window.location.href = '/login'
+    } else {
+      next()
     }
-  }
-  if (!Store.getters.isAuthenticated) {
+  } else if (!Store.getters.isAuthenticated) {
     window.location.href = '/login'
   } else {
     next()
