@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <alerts></alerts>
     <account-bar></account-bar>
     <router-view></router-view>
   </div>
@@ -7,8 +8,9 @@
 
 <script>
   import AccountBar from './AccountBar'
+  import Alerts from './alerts/Alerts'
   export default {
-    components: {AccountBar}
+    components: {Alerts, AccountBar}
   }
 </script>
 

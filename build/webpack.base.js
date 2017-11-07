@@ -7,6 +7,12 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const config = require('./config')
 const _ = require('./utils')
 
+var apiHost = '\'http://localhost:8000\''
+
+if (process.env.API_ROOT) {
+  apiHost = process.env.API_ROOT
+}
+
 module.exports = {
   entry: {
     client: './client/index.js'
@@ -111,32 +117,6 @@ module.exports = {
         }
       }
     ]
-    // loaders: [
-    //   {
-    //     test: /\.vue$/,
-    //     loaders: ['vue-loader']
-    //   },
-    //   {
-    //     test: /\.js$/,
-    //     loaders: ['babel-loader'],
-    //     exclude: [/node_modules/]
-    //   },
-    //   {
-    //     test: /\.es6$/,
-    //     loaders: ['babel-loader']
-    //   },
-    //   {
-    //     test: /\.(ico|jpg|png|gif|eot|otf|webp|ttf|woff|woff2)(\?.*)?$/,
-    //     loader: 'file-loader',
-    //     query: {
-    //       name: 'static/media/[name].[hash:8].[ext]'
-    //     }
-    //   },
-    //   {
-    //     test: /\.svg$/,
-    //     loader: 'raw-loader'
-    //   }
-    // ]
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -151,7 +131,10 @@ module.exports = {
         // to the roor of dist path
         to: './'
       }
-    ])
+    ]),
+    new webpack.DefinePlugin({
+      __API__: apiHost
+    })
   ],
   target: _.target
 }

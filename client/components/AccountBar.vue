@@ -1,5 +1,5 @@
 <template>
-  <div id="account-nav"><div id="account-nav__name">Hello <em>{{userName}}</em>!</div></div>
+  <div id="account-nav"><div v-if="isAuthenticated" id="account-nav__name">Hello <em>{{userName}}</em>!</div></div>
 </template>
 
 <script>
@@ -7,7 +7,7 @@
   export default {
     name: 'AccountBar',
     computed: {
-      ...mapGetters(['userName'])
+      ...mapGetters(['userName', 'isAuthenticated'])
     }
   }
 </script>

@@ -15,7 +15,7 @@ const mutations = {
 const actions = {
   login ({commit}, credentials) {
     Vue.http.post(
-      'http://localhost:8000/api/v1/api-token-auth/login/',
+      `${__API__}/api/v1/api-token-auth/login/`,
       credentials,
       { headers: { 'Content-Type': 'application/json' } }
     ).then(
@@ -29,6 +29,7 @@ const actions = {
             username: decodedUser.username
           })
           Vue.ls.set('user', JSON.stringify(decodedUser))
+          Vue.ls.set('jwt', token)
         }
         console.log(JSON.stringify(JSON.stringify(decodedUser)))
       }

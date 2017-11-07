@@ -21,7 +21,7 @@
       onLogin () {
         this.$store.dispatch('login', { username: this.login, password: this.password }).then(
           data => {
-            console.log(`Logged in ${JSON.stringify(data)}`)
+            this.$router.push('/')
           }
         )
       }

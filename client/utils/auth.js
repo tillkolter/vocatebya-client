@@ -1,3 +1,4 @@
+import Vue from 'vue'
 
 export const jwtUpToDate = (jwt) => {
   let exp = jwt['exp']
@@ -9,4 +10,13 @@ export const jwtUpToDate = (jwt) => {
   } else {
     return true
   }
+}
+
+export const getAuthHeader = () => {
+  let token = Vue.ls.get('jwt')
+  let header = {}
+  if (token) {
+    header['Authorization'] = `JWT ${token}`
+  }
+  return header
 }

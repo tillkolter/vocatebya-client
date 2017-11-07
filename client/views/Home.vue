@@ -1,9 +1,8 @@
 <template>
   <div class="page">
-    <counter></counter>
-    <p>
-      To get started, edit files in <code>./client</code> and save.
-    </p>
+    <nav>
+      <router-link :to="{name: 'add-vocables'}">New...</router-link>
+    </nav>
   </div>
 </template>
 
