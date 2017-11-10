@@ -40,9 +40,11 @@
     }
     &.info {
       background-color: blue;
+      color: #fff;
     }
     &.success {
       background-color: green;
+      color: #fff;
     }
   }
   .fade-from-bottom-enter-active, .fade-from-bottom-leave-active {

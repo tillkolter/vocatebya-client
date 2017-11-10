@@ -2,6 +2,10 @@
   <div id="app">
     <alerts></alerts>
     <account-bar></account-bar>
+    <nav>
+      <router-link :to="{name: 'add-vocables'}">New</router-link>
+      <router-link :to="{name: 'test-vocables'}">Test</router-link>
+    </nav>
     <router-view></router-view>
   </div>
 </template>

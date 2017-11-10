@@ -7,7 +7,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const config = require('./config')
 const _ = require('./utils')
 
-var apiHost = '\'http://localhost:8000\''
+var apiHost = 'http://localhost:8000'
 
 if (process.env.API_ROOT) {
   apiHost = process.env.API_ROOT
@@ -133,7 +133,7 @@ module.exports = {
       }
     ]),
     new webpack.DefinePlugin({
-      __API__: apiHost
+      __API__: `'${apiHost}/api/v1/'`
     })
   ],
   target: _.target

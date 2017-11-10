@@ -15,7 +15,7 @@ const mutations = {
 const actions = {
   login ({commit}, credentials) {
     Vue.http.post(
-      `${__API__}/api/v1/api-token-auth/login/`,
+      `${__API__}api-token-auth/login/`,
       credentials,
       { headers: { 'Content-Type': 'application/json' } }
     ).then(

@@ -1,8 +1,5 @@
 <template>
   <div class="page">
-    <nav>
-      <router-link :to="{name: 'add-vocables'}">New...</router-link>
-    </nav>
   </div>
 </template>
 

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '../views/Home'
 import Login from '../components/auth/Login'
 import CreateVocables from '../views/CreateVocables'
+import VocableTest from '../views/VocableTest'
 import Store from '../store'
 import { jwtUpToDate } from '../utils/auth'
 
@@ -41,9 +42,15 @@ let router = new Router({
       component: Login
     },
     {
-      path: '/add-vocables',
+      path: '/vocables/add',
       name: 'add-vocables',
       component: CreateVocables,
+      beforeEnter: requireAuth
+    },
+    {
+      path: '/vocables/test',
+      name: 'test-vocables',
+      component: VocableTest,
       beforeEnter: requireAuth
     }
   ]
