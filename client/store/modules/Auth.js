@@ -13,7 +13,7 @@ const mutations = {
 }
 
 const actions = {
-  login ({commit}, credentials) {
+  login: ({commit}, credentials) => new Promise((resolve, reject) => {
     Vue.http.post(
       `${__API__}api-token-auth/login/`,
       credentials,
@@ -32,9 +32,10 @@ const actions = {
           Vue.ls.set('jwt', token)
         }
         console.log(JSON.stringify(JSON.stringify(decodedUser)))
+        resolve()
       }
     )
-  }
+  })
 }
 
 const getters = {
