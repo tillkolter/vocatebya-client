@@ -1,6 +1,11 @@
 <template>
   <div>
-    {{currentTestVocable.word.word}}
+    <div>
+      {{currentTestVocable.vocable.word.word}}
+    </div>
+    <div>
+      {{ `${currentTestVocable.position + 1}/${currentVocableTest.count}` }}
+    </div>
   </div>
 </template>
 
@@ -9,7 +14,7 @@
   export default {
     name: 'CurrentTestVocable',
     computed: {
-      ...mapGetters(['currentTestVocable'])
+      ...mapGetters(['currentTestVocable', 'currentVocableTest'])
     }
   }
 </script>

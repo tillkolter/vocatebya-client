@@ -5,7 +5,7 @@
       <template v-if="!currentResultStatus">
         <form @submit.prevent="onSolveVocable">
           <input v-model="targetTranslation" type="text" required/>
-          <input type="submit"/>
+          <input value="Weiter" type="submit"/>
         </form>
       </template>
       <template v-else>
@@ -35,17 +35,25 @@
       }
     },
     computed: {
-      ...mapGetters(['currentTestVocable', 'loadingTest', 'currentResultStatus'])
+      ...mapGetters(['currentTestVocable', 'loadingTest', 'currentResultStatus', 'currentVocableTest']),
+      resultText () {
+        if (this.currentResultStatus === 'failed') {
+          return 'Falsch'
+        } else if (this.currentResultStatus === 'solved') {
+          return 'Richtig'
+        }
+      }
     },
     methods: {
       getNextVocable () {
         this.targetTranslation = ''
-        this.$store.dispatch('nextVocable')
+        this.$store.dispatch('nextTestVocable')
       },
       onSolveVocable () {
         this.$store.dispatch('solveVocableTranslation', {
           id: this.currentTestVocable.id,
-          translation: this.targetTranslation
+          translation: this.targetTranslation,
+          testId: this.currentVocableTest.id
         })
       },
       startTest () {

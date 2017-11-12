@@ -10,7 +10,8 @@ const state = {
   currentTestVocable: undefined,
   testVocableHistory: [],
   currentResultStatus: undefined,
-  loadingTest: false
+  loadingTest: false,
+  vocableTest: undefined
 }
 
 const mutations = {
@@ -32,6 +33,10 @@ const mutations = {
   },
   SET_LOADING_TEST (state, loading) {
     state.loadingTest = loading
+  },
+  SET_VOCABLE_TEST (state, test) {
+    state.vocableTest = test
+    state.currentTestVocable = test.next_vocable
   }
 }
 
@@ -76,18 +81,48 @@ const actions = {
       commit('SET_LOADING_TEST', false)
     })
   },
+  nextTestVocable ({commit}) {
+    commit('SET_CURRENT_RESULT_STATUS', null)
+    let testId = store.getters.currentVocableTest.id
+    let headers = getAuthHeader()
+    headers['Content-Type'] = 'application/json'
+    Vue.http.post(`${__API__}vocable-test/${testId}/next-vocable`, {}, {headers: headers}).then(
+      response => {
+        let data = response.data
+        if (data) {
+          commit('SET_CURRENT_TEST_VOCABLE', data)
+        }
+        commit('SET_LOADING_TEST', false)
+      }
+    ).catch(() => {
+      commit('SET_LOADING_TEST', false)
+    })
+  },
   startVocableTest ({commit}) {
     commit('SET_LOADING_TEST', true)
     commit('RESET_VOCABLE_TEST')
-    store.dispatch('nextVocable')
+    store.dispatch('nextVocableTest')
   },
-  solveVocableTranslation ({commit}, {id, translation}) {
+  solveVocableTranslation ({commit}, {id, translation, testId}) {
     let headers = getAuthHeader()
     headers['Content-Type'] = 'application/json'
-    Vue.http.post(`${__API__}vocable/${id}/solve`, {'translation': translation}, {headers: headers}).then(
+    let data = {solution: {translation: translation}, vocable: id, user: 1}
+    Vue.http.post(`${__API__}vocable-answer`, data, {headers: headers}).then(
       response => {
         let status = response.data.status
         commit('SET_CURRENT_RESULT_STATUS', status)
+      }
+    )
+  },
+  nextVocableTest ({commit}) {
+    let headers = getAuthHeader()
+    headers['Content-Type'] = 'application/json'
+    Vue.http.post(`${__API__}vocable-test/next`, {}, {headers: headers}).then(
+      response => {
+        let data = response.data
+        if (data) {
+          commit('SET_VOCABLE_TEST', data)
+        }
       }
     )
   }
@@ -96,6 +131,7 @@ const actions = {
 const getters = {
   currentVocable: state => state.currentVocable,
   currentTestVocable: state => state.currentTestVocable,
+  currentVocableTest: state => state.vocableTest,
   wordTypes: state => {
     if (state.wordTypes) return state.wordTypes
     else {
