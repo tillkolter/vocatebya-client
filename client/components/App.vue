@@ -3,8 +3,9 @@
     <alerts></alerts>
     <account-bar></account-bar>
     <nav>
-      <router-link :to="{name: 'add-vocables'}">New</router-link>
+      <router-link :to="{name: 'translate'}">Translate</router-link>
       <router-link :to="{name: 'test-vocables'}">Test</router-link>
+      <router-link :to="{name: 'add-vocables'}">New</router-link>
     </nav>
     <router-view></router-view>
   </div>

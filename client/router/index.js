@@ -4,6 +4,7 @@ import Home from '../views/Home'
 import Login from '../components/auth/Login'
 import CreateVocables from '../views/CreateVocables'
 import VocableTest from '../views/VocableTest'
+import Translation from '../views/Translation'
 import Store from '../store'
 import { jwtUpToDate } from '../utils/auth'
 
@@ -51,6 +52,12 @@ let router = new Router({
       path: '/vocables/test',
       name: 'test-vocables',
       component: VocableTest,
+      beforeEnter: requireAuth
+    },
+    {
+      path: '/translate',
+      name: 'translate',
+      component: Translation,
       beforeEnter: requireAuth
     }
   ]
